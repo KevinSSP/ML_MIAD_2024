@@ -57,7 +57,9 @@ def predict_genres(indata):
     cols = ['Action', 'Adventure', 'Animation', 'Biography', 'Comedy', 'Crime', 'Documentary', 'Drama', 'Family',
             'Fantasy', 'Film-Noir', 'History', 'Horror', 'Music', 'Musical', 'Mystery', 'News', 'Romance',
             'Sci-Fi', 'Short', 'Sport', 'Thriller', 'War', 'Western']
-    res = pd.DataFrame(y_pred, columns=cols)
+    
+    # Filtrar las columnas cuyo valor sea mayor o igual a 0.50
+    res = pd.DataFrame({col: [val] for col, val in zip(cols, y_pred[0]) if val >= 0.5})
 
     # Convertir DataFrame a JSON
     res_json = res.to_json(orient='records')
